@@ -1,38 +1,36 @@
-import React from 'react';
-// import AppNavigator from './components/AppNavigator';
-import { StyleSheet , View,Text } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
-import RegistrationScreen from './components/auth/RegistrationScreen';
+import RegistrationScreen from "./components/auth/RegistrationScreen";
 import LoginScreen from "./components/auth/LoginScreen";
-import HomeScreen from './components/home/HomeScreen';
-import ViewItemScreen from "./components/menu/ViewItemScreen";
-import CartScreen from  "./components/cart/CartScreen";
+import CartScreen from "./components/cart/CartScreen";
 import CheckoutScreen from "./components/checkout/CheckoutScreen";
-import ProfileScreen from './components/profile/ProfileScreen';
 
+import MenuScreen from "./components/home/MenuScreen";
+import ViewItemScreen from "./components/menu/ViewItemScreen";
 
+// import ProfileScreen from "./components/profile/ProfileScreen";
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
-  const Stack = createStackNavigator();
-
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   return (
-
-    <NavigationContainer  initialRouteName="Registration">
-      <Stack.Navigator>
-        <Stack.Screen name="Registration" component={RegistrationScreen}/>
-        <Stack.Screen name="Login" component={LoginScreen}/>
-        <Stack.Screen name="Home" component={HomeScreen}/>
-        <Stack.Screen name="ViewItem" component={ViewItemScreen}/>
-        <Stack.Screen name="Cart" component={CartScreen}/>
-        <Stack.Screen name="Checkout" component={CheckoutScreen}/>
-        <Stack.Screen name="Profile" component={ProfileScreen}/>
-        {/* <AppNavigator/> */}
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Menu">
+        <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="ItemDetails" component={ViewItemScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
+        <Stack.Screen name="Checkout" component={CheckoutScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Registration" component={RegistrationScreen} />
       </Stack.Navigator>
-     
-
-
     </NavigationContainer>
   );
 }
@@ -40,8 +38,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

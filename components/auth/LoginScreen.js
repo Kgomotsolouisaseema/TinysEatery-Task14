@@ -1,28 +1,52 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, StyleSheet, Pressable, TouchableOpacity, Text} from 'react-native';
 import {auth} from "../config/firebase"
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const LoginScreen = () => {
-    const navigation =useNavigation();
+  const navigation =useNavigation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
+  useEffect(()=>{
+    const unsubscribe = onAuthStateChanged(auth,(user)=>{
+      if(user){
+        //if user did not signed in ,navigate to Home Screen
+        navigation.navigate("Home")
+      }else{
+        console.log("user signed in ")
+      }
+    });
+     //clean up subscription when component mounts
+     return () => unsubscribe();
+  },[])
 
   const handleLogin = async() => {
     try{
         await signInWithEmailAndPassword(auth,email,password).than(()=>{
         console.log("Login button Clicked")
-        navigation.navigate("HomeScreen")
+        navigation.navigate("Home")
         })
     }catch(error){
         console.log("Error Logging in " , error)
     }
   };
 
-  
+  const handleSignUp = async () =>{
+    navigation.navigate("Registration")
+   
+    console.log('SignUp btn clicked , navigating to Registration Page')
+  };
+
+  const handleForgotPassword = () =>{
+    console.log('password forgot')
+  }
+
+
 
   return (
     <View style={styles.container}>
@@ -40,8 +64,29 @@ const LoginScreen = () => {
         secureTextEntry
         style={styles.input}
       />
-      <Pressable title="Register" onPress={handleLogin} />
-    </View>
+      <TouchableOpacity title="Register" onPress={handleLogin} >
+      <Text style={styles.input}>Log In </Text>
+      </TouchableOpacity>
+      
+      <View style={styles.actionContainer}>
+           
+           <View>
+             <View style={styles.signUpOpt}>
+               <Text style={styles.noAccText}>Haven't Signed Up?</Text>
+               <TouchableOpacity onPress={handleSignUp}>
+                 <Text style={styles.signUpText}>Sign Up</Text>
+               </TouchableOpacity>
+             </View>
+             <View style={styles.forgotPassWordCont}>
+               <TouchableOpacity onPress={handleForgotPassword}>
+                 <Text style={styles.forgotPassWordText}>Forgot Password</Text>
+               </TouchableOpacity>
+             </View>
+           </View>
+         </View>
+      </View>
+    
+    
   );
 };
 
@@ -50,13 +95,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:"yellow"
   },
   input: {
     width: '80%',
     marginBottom: 10,
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    borderWidth: 3,
+    borderColor: 'black',
     borderRadius: 5,
   },
 });

@@ -18,6 +18,7 @@ const CartScreen = () => {
           </View>
         )}
       />
+      <Text>this is the cart screen where the user will see the items they have ordered on this screen before procedding to checkout </Text>
     </View>
   );
 };
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor:"green"
   },
   itemContainer: {
     padding: 20,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
+import {auth , onAuthStateChanged} from  "../config/firebase"
 
 
 const ProfileScreen = () => {
@@ -12,10 +13,12 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     // Fetch user details from Firebase and set in userDetails state
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+    const unsubscribe =onAuthStateChanged(auth , (user) => {
       if (user) {
         // User is signed in, fetch user details
         // Update userDetails state with fetched user details
+      }else{
+        Alert.alert("Welcome back :",user ,"Have a Happy Meal")
       }
     });
 
@@ -29,6 +32,7 @@ const ProfileScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Text>This is the Profile Screen where the users will have thier detailes here</Text>
       <TextInput
         placeholder="Name"
         value={userDetails.name}
@@ -36,7 +40,7 @@ const ProfileScreen = () => {
         style={styles.input}
       />
       {/* Other input fields for email, address, and contact number */}
-      <Button title="Update Profile" onPress={handleProfileUpdate} />
+      <Pressable title="Update Profile" onPress={handleProfileUpdate} />
     </View>
   );
 };
