@@ -1,7 +1,12 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-
+import { UseSelector } from 'react-redux';
 const MenuScreen = ({ navigation }) => {
+const isLoggedIn = UseSelector(state => state.auth.isLoggedIn);
+
+
+
+
   // Dummy data for food categories (replace this with data from your database)
   const foodCategories = [
     { id: 1, category: 'Appetizers' },
@@ -16,6 +21,12 @@ const MenuScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {isLoggedIn ?(
+         <Text>This is the Menu Screen. Explore our delicious offerings:</Text>
+      ) :(
+        <Text>Please logg in to Place an Order</Text>
+      )}
+
       <Text>This is the Menu Screen. Explore our delicious offerings:</Text>
       <FlatList
         data={foodCategories}

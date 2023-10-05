@@ -1,12 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, StyleSheet, Pressable, TouchableOpacity, Text} from 'react-native';
+import { View, TextInput, StyleSheet,TouchableOpacity, Text} from 'react-native';
 import {auth} from "../config/firebase"
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-
+import { useDispatch } from 'react-redux';
+import {loginUser} from "../../redux/authActions"
 
 const LoginScreen = () => {
   const navigation =useNavigation();
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +32,8 @@ const LoginScreen = () => {
     try{
         await signInWithEmailAndPassword(auth,email,password).than(()=>{
         console.log("Login button Clicked")
-        navigation.navigate("Home")
+        dispatch(loginUser());
+        // navigation.navigate("Home")
         })
     }catch(error){
         console.log("Error Logging in " , error)

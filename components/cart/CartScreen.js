@@ -1,24 +1,32 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-web';
+import { UseSelector , useDispatch } from 'react-redux';
+// import { removeFromCart } from '../redux/cartActions'; //implement 
 
 
 const CartScreen = () => {
+  const cartItems = UseSelector(state => state.cart.items);
+  const dispatch = useDispatch();
+
   // Fetch food categories and items from Firebase
   const foodData = []; // Retrieve data from Firebase
 
+  const handleRomoveFromCart =(itemId)=>{
+    dispatch(removeFromCart(itemId));
+  }
   return (
     <View style={styles.container}>
-      <FlatList
-        data={foodData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <Text>{item.category}</Text>
-            {/* Render food items within each category */}
-          </View>
-        )}
-      />
-      <Text>this is the cart screen where the user will see the items they have ordered on this screen before procedding to checkout </Text>
+      {cartItems.map(item =>(
+        <View key={item.id}>
+          <TouchableOpacity title="Remove" onPress={()=> handleRomoveFromCart(item.id)}>
+            <Text>{item.name}</Text>
+          </TouchableOpacity>
+
+
+           </View>
+      ))}
+     
     </View>
   );
 };

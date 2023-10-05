@@ -3,6 +3,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import {doc , setDoc} from "firebase/firestore";
 import {auth , db}from "../config/firebase"
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/authActions";
 import {
   View,
   TextInput,
@@ -15,6 +17,7 @@ import {
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -71,6 +74,7 @@ const RegistrationScreen = () => {
         address:address,
         cardDetails:cardDetails,
       });
+      dispatch(setUser(user));
 
       console.log("Handle Registration btn Clicked" , cardDetails);
       // setIsUserLoggedIn(true);
