@@ -12,23 +12,31 @@ import RegistrationScreen from "./auth/RegistrationScreen";
 import LoginScreen from "./auth/LoginScreen";
 import CartScreen from "./cart/CartScreen";
 import CheckoutScreen from "./checkout/CheckoutScreen";
-
 import MenuScreen from "./home/MenuScreen";
 import ViewItemScreen from "./menu/ViewItemScreen";
-
 import ProfileScreen from "./profile/ProfileScreen"
+import OnboardScreen from "./home/OnboardScreen"
 
 
 const Stack = createStackNavigator();
 // const Tab = createBottomTabNavigator();
 // const Drawer = createDrawerNavigator();
 
+// const AuthStack = () => (
+//     <Stack.Navigator>
+//       <Stack.Screen name="Login" component={LoginScreen} />
+//       <Stack.Screen name="Registration" component={RegistrationScreen} />
+//     </Stack.Navigator>
+//   );
+
+
 export default function AppNavigator() {
   // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   return (
 
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Menu">
+    // <NavigationContainer>
+      <Stack.Navigator initialRouteName="Onboard">
+        {/* <Stack.Screen name="Onboard"component={OnboardScreen} /> */}
         <Stack.Screen name="Menu" component={MenuScreen} />
         <Stack.Screen name="ItemDetails" component={ViewItemScreen} />
         <Stack.Screen name="Cart" component={CartScreen} />
@@ -37,7 +45,7 @@ export default function AppNavigator() {
         <Stack.Screen name="Registration" component={RegistrationScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
-    </NavigationContainer>
+    // </NavigationContainer>
 
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
-import {auth , onAuthStateChanged} from  "../config/firebase"
-
+// import {auth , onAuthStateChanged} from  "../config/firebase"
+import { onAuthStateChanged,auth } from 'firebase/auth';
 
 const ProfileScreen = () => {
   const [userDetails, setUserDetails] = useState({
@@ -13,7 +13,7 @@ const ProfileScreen = () => {
 
   useEffect(() => {
     // Fetch user details from Firebase and set in userDetails state
-    const unsubscribe =onAuthStateChanged(auth , (user) => {
+    const unsubscribe = onAuthStateChanged(auth , (user) => {
       if (user) {
         // User is signed in, fetch user details
         // Update userDetails state with fetched user details
