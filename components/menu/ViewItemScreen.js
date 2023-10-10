@@ -1,54 +1,40 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, Image } from "react-native";
-import { collection, doc, getDocs,where,query } from "firebase/firestore";
+import { collection, doc, getDocs,getDoc } from "firebase/firestore";
 import {  db } from "../config/firebase";
+import { useRoute } from "@react-navigation/native";
 
 
-const ViewItemScreen = ({ route }) => {
-  const navigation = useNavigation();
+const ViewItemScreen = ({route}) => { //{ route }
+  // const navigation = useNavigation();
+  // const route = useRoute();
   
-  const { categoryId } = route.params;
-  console.log(categoryId , "The users selction")
+  const {  menuItemData } = route.params;
+  console.log( "The users selction",menuItemData )
 
-  const [filteredItems, setFilteredItems] = useState([]);
+  // const {Name , Description , Price}= menuItemData;
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const q = query(collection(db, "Menu"), where("ItemCategory" , "==" , categoryId));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc)=>{
-          console.log(doc.id , "=>" , doc.data());
-        })
-        const itemsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setFilteredItems(itemsData);
-      } catch (error) {
-        console.error("Error fetching menu items: ", error);
-      }
-    };
+  // const [filteredItems, setFilteredItems] = useState([]);
 
-    fetchItems();
-  }, [categoryId]);
+  
+// useEffect(()=>{
+
+// }, [doc.id]);
+
+if(!menuItemData) return null;
+console.log( "The users selction",menuItemData )
+
 
   return (
     <View style={styles.container}>
       <Text>Items in the selected category:</Text>
-      <FlatList
-        data={filteredItems}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <Image style={styles.image} source={{ uri: item.Image }} />
-            <Text>{item.Name}</Text>
-            <Text>{item.Description}</Text>
-            <Text>Price ZAR {item.Price}</Text>
+       <View style={styles.itemContainer}>
+            <Image style={styles.image} source={{ uri: menuItemData.Image }} />
+            <Text>{menuItemData.Name}</Text>
+            <Text>{menuItemData.Description}</Text>
+            <Text>Price ZAR {menuItemData.Price}</Text>
           </View>
-        )}
-      />
     </View>
   );
 };
@@ -58,19 +44,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#FFEBCD", //blanched Almond color
   },
   itemContainer: {
     padding: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 3,
+    borderColor: "#654321", //dark brown 
     borderRadius: 10,
     margin: 10,
     alignItems: "center",
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 250,
     marginBottom: 10,
+    borderRadius: 9
   },
 });
 
