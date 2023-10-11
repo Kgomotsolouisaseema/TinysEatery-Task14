@@ -40,6 +40,8 @@ const MenuScreen = () => {
         }));
         setFoodCategories(catergoriesData);
         // setFilteredCategories(catergoriesData);
+        setSelectedItems(catergoriesData)
+
         console.log(foodCategories, "food categories");
       } catch (error) {
         console.error("Error fetching food categories:", error);
@@ -71,7 +73,10 @@ const MenuScreen = () => {
  
   const handleAddToCart = id => {
     console.log("Add to cart btn clicked ");
+    console.log(selectedItems, "selectedItems");
+    //THIS PART FILTERS THE SELECTED ITEM WITH ITS ID 
     const [item]= selectedItems.filter(item =>item.id ===id)
+    //WE DISPATCH THE ITEM AND ADD IT TO THE CART 
     dispatch(addToCart(item));
     console.log("items added to cart", item)
     // Filter out items that are already in the cart
@@ -81,7 +86,7 @@ const MenuScreen = () => {
     );
    
     // Add new items to the cart
-    setCartItems([...cartItems, ...newItems]);
+    // setCartItems([...cartItems, ...newItems]);
     // Clear the selected items
     setSelectedItems([]);
   };
@@ -101,7 +106,7 @@ const MenuScreen = () => {
 
         console.log("Category Data:", menuItemData);
         navigation.navigate("ItemDetails", { menuItemData });
-        setSelectedItems(menuItemData)
+        // setSelectedItems(menuItemData)
 
         //NOW YOU CAN USE THE foodItemData TO DISPLAY/PROCESS THE DOCUMENT
       } else {
@@ -175,7 +180,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    fontFamily: 'Baskerville-Italic',
+    // fontFamily: 'Baskerville-Italic',
     flex: 1,
     alignItems: "center",
   },

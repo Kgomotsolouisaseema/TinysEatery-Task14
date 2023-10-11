@@ -25,8 +25,8 @@ const RegistrationScreen = () => {
   const [surname, setSurname] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [address, setAdress] = useState("");
-  const [cardHolder, setCardHolder] = useState([])
-  const [cardDetails, setCardDetails] = useState([])
+  const [cardHolder, setCardHolder] = useState("")
+  const [cardDetails, setCardDetails] = useState("")
 
   
 
@@ -57,6 +57,7 @@ const RegistrationScreen = () => {
         surname:surname,
         contactNum:contactNum,
         address:address,
+        cardHolder:cardHolder,
         cardDetails:cardDetails,
       });
       // dispatch(setUser(user));
@@ -69,14 +70,6 @@ const RegistrationScreen = () => {
     }
    }
   
-  
-
-
-  //FUNCTION TO HANDLE COLLECTING CARD DETAILES OF USER USING PAYPAL REST API 
-  const handleCardDetailsChange = (form) => {
-    console.log(form);
-    setCardDetails(form);
-  };
 
   return (
     <View style={styles.container}>
@@ -130,7 +123,7 @@ const RegistrationScreen = () => {
       <View style={styles.paymentcard}>
        <TextInput
         placeholder="Card Holders Name"
-        value={cardDetails}
+        value={cardHolder}
         onChangeText={(text) =>setCardHolder(text)}
         style={styles.input}
       />
@@ -140,14 +133,6 @@ const RegistrationScreen = () => {
         onChangeText={(text) =>setCardDetails(text)}
         style={styles.input}
       />
-      {/* <TextInput
-        placeholder=""
-        value={cardDetails}
-        onChangeText={(text) =>setCardDetails(text)}
-        style={styles.input}
-      />  */}
-      {/* <CreditCardInput onChange={handleCardDetailsChange} /> */}
-
       </View>
 
       <View style={styles.bottombtn}>

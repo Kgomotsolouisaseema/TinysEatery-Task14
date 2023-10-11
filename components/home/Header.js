@@ -12,7 +12,8 @@ const Header =()=> {
     const navigation = useNavigation();
     const [showCard, setShowCard] = useState(false);
     const cartItems =  useSelector((state) => state.CartSlice);
-    const quantity =  cartItems.length;
+    const quantity =  cartItems ? cartItems.length : 0;
+    console.log(quantity)
     const CartIconWithBadge = withBadge(quantity)(Icon);
    
     const handleCartNav = () => {
@@ -57,8 +58,8 @@ const Header =()=> {
                     <CartIconWithBadge
                         type="material-community"
                         name="cart"
-                        size={30}
-                        color={'black'}
+                        size={35}
+                        color={'orange'}
                         onPress={handleCartNav}
                     />
                 </View>

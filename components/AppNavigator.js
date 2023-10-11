@@ -37,13 +37,13 @@ export default function AppNavigator() {
     // <NavigationContainer>
       <Stack.Navigator initialRouteName="Onboard">
         {/* <Stack.Screen name="Onboard"component={OnboardScreen}options={{headerShown: false}} /> */}
-        {/* <Stack.Screen name="Menu" component={MenuScreen} /> */}
-        {/* <Stack.Screen name="ItemDetails" component={ViewItemScreen} /> */}
-        {/* <Stack.Screen name="Cart" component={CartScreen} /> */}
-        {/* <Stack.Screen name="Checkout" component={CheckoutScreen} /> */}
-        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+        <Stack.Screen name="Menu" component={MenuScreen} />
+        <Stack.Screen name="ItemDetails" component={ViewItemScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
+        <Stack.Screen name="Checkout" component={CheckoutScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
-        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     // </NavigationContainer>
 

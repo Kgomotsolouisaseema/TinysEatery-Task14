@@ -29,7 +29,7 @@ console.log( "The users selction",menuItemData )
   return (
     <View style={styles.container}>
       <View>
-      <Header/>
+      <Header/> 
       </View>
       
       <Text>Items in the selected category:</Text>

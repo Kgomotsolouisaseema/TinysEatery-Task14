@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
-
+import React from "react";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 
 const CheckoutScreen = () => {
   // Fetch food categories and items from Firebase
@@ -8,30 +7,32 @@ const CheckoutScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
+      <Text>fOOD ITEMS CART</Text>
+      {/* <FlatList
         data={foodData}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <Text>{item.category}</Text>
+            <Text>fOOD ITEMS CART</Text>
             {/* Render food items within each category */}
-          </View>
-        )}
-      />
     </View>
+    // )}
+    // /> */}
+    // </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   itemContainer: {
     padding: 20,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 10,
     margin: 10,
   },
