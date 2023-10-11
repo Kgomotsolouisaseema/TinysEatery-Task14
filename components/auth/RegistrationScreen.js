@@ -3,8 +3,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import {doc , setDoc} from "firebase/firestore";
 import {auth , db}from "../config/firebase"
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/authActions";
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../../redux/authActions";
 import {
   View,
   TextInput,
@@ -13,37 +13,22 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { Image } from "react-native-web";
 // import { CreditCardInput } from "react-native-credit-card-input";
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [address, setAdress] = useState("");
-  const [cardDetails, setCardDetails] = useState("")
+  const [cardHolder, setCardHolder] = useState([])
+  const [cardDetails, setCardDetails] = useState([])
 
-  // const [cardDetails, setCardDetails] = useState({
-  //   valid: false,
-  //   values: {
-  //     number: "",
-  //     expiry: " ",
-  //     cvc: "",
-  //     type: "",
-  //     name: "",
-  //     postalCode: "",
-  //   },
-  //   status: {
-  //     number: "incomplete",
-  //     expiry: "incomplete",
-  //     cvc: "incomplete",
-  //     name: "incomplete",
-  //     postalCode: "incomplete",
-  //   },
-  // });
+  
 
   // const handleRegistration = async () => {
   //   try {
@@ -74,7 +59,7 @@ const RegistrationScreen = () => {
         address:address,
         cardDetails:cardDetails,
       });
-      dispatch(setUser(user));
+      // dispatch(setUser(user));
 
       console.log("Handle Registration btn Clicked" , cardDetails);
       // setIsUserLoggedIn(true);
@@ -95,6 +80,15 @@ const RegistrationScreen = () => {
 
   return (
     <View style={styles.container}>
+
+      <View style={styles.name}>
+      <Text >Register Here : </Text>
+      <Image
+            style={styles.image}
+            source={require("../../assets/registerbtn.png")}
+          />
+      </View>
+    
       <TextInput
         placeholder="Name"
         value={name}
@@ -119,13 +113,6 @@ const RegistrationScreen = () => {
         onChangeText={(text) => setAdress(text)}
         style={styles.input}
       />
-       <TextInput
-        placeholder="Card Details"
-        value={cardDetails}
-        onChangeText={(text) =>setCardDetails(text)}
-        style={styles.input}
-      /> 
-      {/* <CreditCardInput onChange={handleCardDetailsChange} /> */}
       <TextInput
         placeholder="Email"
         value={email}
@@ -139,10 +126,36 @@ const RegistrationScreen = () => {
         secureTextEntry
         style={styles.input}
       />
-      {/* <Pressable title="Register" onPress={handleRegistration} /> */}
+       <Text>Card Details :</Text>
+      <View style={styles.paymentcard}>
+       <TextInput
+        placeholder="Card Holders Name"
+        value={cardDetails}
+        onChangeText={(text) =>setCardHolder(text)}
+        style={styles.input}
+      />
+       <TextInput
+        placeholder="Card Number"
+        value={cardDetails}
+        onChangeText={(text) =>setCardDetails(text)}
+        style={styles.input}
+      />
+      {/* <TextInput
+        placeholder=""
+        value={cardDetails}
+        onChangeText={(text) =>setCardDetails(text)}
+        style={styles.input}
+      />  */}
+      {/* <CreditCardInput onChange={handleCardDetailsChange} /> */}
+
+      </View>
+
+      <View style={styles.bottombtn}>
       <TouchableOpacity onPress={handleRegistration}>
         <Text style={styles.inputPress}>Register</Text>
       </TouchableOpacity>
+      </View>
+      
     </View>
   );
 };
@@ -152,26 +165,54 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor:"#FFEBCD", //blanched Almond color,
+  },
+  name:{
+    fontSize: 35,
+    alignItems: "center",
+    width: "20%",
+    height: 180,
+  },
+  image:{
+    height: 160,
+    width: "180%",
+    
+    
   },
   input: {
     width: "80%",
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    borderColor: "black",
+    borderColor: "#654321", //dark brown ,,
     borderRadius: 7,
   },
   inputPress:{
-    width: "80%",
-    borderColor: "Black",
+    width: "100%",
+    borderColor: "#654321",
     marginBottom: 10,
     padding: 10,
     borderWidth: 1,
-    borderColor: "black",
     borderRadius: 7,
     
+  },
+  bottombtn:{
+    // width: "40%",
+    flex:1 ,
+    height: 90,
+  },
+  
+  paymentcard:{
+    borderColor: "#654321", //dark brown 
+    width: "80%",
+    alignContent: "center",
+    alignItems: "center"
+
+
+
   }
+
+
 });
 
 export default RegistrationScreen;

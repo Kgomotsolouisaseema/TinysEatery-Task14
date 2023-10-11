@@ -4,7 +4,7 @@ import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import { collection, doc, getDocs,getDoc } from "firebase/firestore";
 import {  db } from "../config/firebase";
 import { useRoute } from "@react-navigation/native";
-
+import Header from "../home/Header";
 
 const ViewItemScreen = ({route}) => { //{ route }
   // const navigation = useNavigation();
@@ -28,6 +28,10 @@ console.log( "The users selction",menuItemData )
 
   return (
     <View style={styles.container}>
+      <View>
+      <Header/>
+      </View>
+      
       <Text>Items in the selected category:</Text>
        <View style={styles.itemContainer}>
             <Image style={styles.image} source={{ uri: menuItemData.Image }} />

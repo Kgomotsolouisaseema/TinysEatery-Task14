@@ -19,7 +19,7 @@ const LoginScreen = () => {
     const unsubscribe = onAuthStateChanged(auth,(user)=>{
       if(user){
         //if user did not signed in ,navigate to Home Screen
-        navigation.navigate("Home")
+        // navigation.navigate("Menu")
       }else{
         console.log("user signed in ")
       }
@@ -33,7 +33,7 @@ const LoginScreen = () => {
         await signInWithEmailAndPassword(auth,email,password).than(()=>{
         console.log("Login button Clicked")
         // dispatch(loginUser());
-        // navigation.navigate("Home")
+        navigation.navigate("Menu")
         })
     }catch(error){
         console.log("Error Logging in " , error)
@@ -74,7 +74,7 @@ const LoginScreen = () => {
       
       <View style={styles.actionContainer}>
            
-           <View>
+           
              <View style={styles.signUpOpt}>
                <Text style={styles.noAccText}>Haven't Signed Up?</Text>
                <TouchableOpacity onPress={handleSignUp}>
@@ -87,8 +87,9 @@ const LoginScreen = () => {
                </TouchableOpacity>
              </View>
            </View>
+
          </View>
-      </View>
+      
     
     
   );
@@ -99,16 +100,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:"yellow"
+    backgroundColor:"#FFEBCD",
   },
   input: {
-    width: '80%',
+    width: '100%',
     marginBottom: 10,
     padding: 10,
     borderWidth: 3,
-    borderColor: 'black',
-    borderRadius: 5,
+    borderColor: "#654321", //dark brow border color
+    borderRadius: 7,
   },
+ 
 });
 
 export default LoginScreen;

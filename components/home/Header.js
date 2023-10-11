@@ -6,13 +6,13 @@ import { View, StyleSheet, Modal, Text, TouchableOpacity } from "react-native";
 import { Icon, withBadge } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../config/firebase";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Header =()=> {
     const navigation = useNavigation();
     const [showCard, setShowCard] = useState(false);
-    const cartItems =  0 //useSelector((state) => state.CartSlice);
-    const quantity =  0 //cartItems.length;
+    const cartItems =  useSelector((state) => state.CartSlice);
+    const quantity =  cartItems.length;
     const CartIconWithBadge = withBadge(quantity)(Icon);
    
     const handleCartNav = () => {
