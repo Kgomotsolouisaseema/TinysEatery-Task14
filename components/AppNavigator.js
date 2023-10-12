@@ -29,7 +29,8 @@ const Stack = createStackNavigator();
 //     </Stack.Navigator>
 //   );
 
-
+// const isAuth = true 
+// { isAuth && <Stack.Screen name="ItemDetails" component={ViewItemScreen} /> }
 export default function AppNavigator() {
   // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   return (
@@ -38,7 +39,7 @@ export default function AppNavigator() {
       <Stack.Navigator initialRouteName="Onboard">
         {/* <Stack.Screen name="Onboard"component={OnboardScreen}options={{headerShown: false}} /> */}
         <Stack.Screen name="Menu" component={MenuScreen} />
-        <Stack.Screen name="ItemDetails" component={ViewItemScreen} />
+        <Stack.Screen name="ItemDetails" component={ViewItemScreen} /> 
         <Stack.Screen name="Cart" component={CartScreen} />
         <Stack.Screen name="Checkout" component={CheckoutScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />

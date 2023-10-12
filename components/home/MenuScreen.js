@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../home/Header";
 import { UseSelector,useDispatch } from 'react-redux';
 import { addToCart } from "../../redux/cartSlice";
-
+import { Avatar } from "react-native-paper";
 import {
   View,
   Text,
@@ -120,6 +120,25 @@ const MenuScreen = () => {
   return (
     <View style={styles.container}>
       <Header />
+      <View style={{flexDirection: "row" , justifyContent: "space-between"}}>
+      <Avatar.Image size={65} source={require('../../assets/BreakfastBurger.jpg')} />
+      <Text>BreakFast</Text>
+      {/* <Avatar.Text size={35} label="BreakFast" /> */}
+      
+      <Text>         </Text>
+      <Avatar.Image size={60} source={require('../../assets/BBQ RIBBED.jpg')} />
+      <Text>Lunch</Text>
+      
+      <Text>          </Text>
+      <Avatar.Image size={60} source={require('../../assets/Doughtnuts.jpg')} />
+      <Text>Dessert</Text>
+
+      <Text>          </Text>
+      <Avatar.Image size={60} source={require('../../assets/miniOrangeBomb.jpg ')} />
+      <Text>Drinks</Text>
+
+      </View>
+
       <Text>This is the Menu Screen. Explore our delicious offerings:</Text>
       <FlatList
         data={foodCategories}

@@ -1,27 +1,30 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-// import { createDrawerNavigator } from "@react-navigation/drawer";
 import  store from "./redux/store"
-
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
+import { Provider as StoreProvider } from 'react-redux';
 import AppNavigator from "./components/AppNavigator";
+import { AppRegistry } from 'react-native';
+import { PaperProvider } from 'react-native-paper';
+import { name as appName } from './app.json';
+// import App from './src/App';
 
-const Stack = createStackNavigator();
-// const Tab = createBottomTabNavigator();
-// const Drawer = createDrawerNavigator();
+
 
 export default function App() {
   return (
-    <Provider store={store}> 
+     <StoreProvider store={store}>
+    <PaperProvider>
       <NavigationContainer>
         <AppNavigator />
       </NavigationContainer>
-      </Provider>
+      </PaperProvider>
+      </StoreProvider>
+    
   );
 }
+AppRegistry.registerComponent(appName, () => App);
 
 const styles = StyleSheet.create({
   container: {

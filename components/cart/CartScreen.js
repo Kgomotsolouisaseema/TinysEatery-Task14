@@ -3,14 +3,14 @@ import { View, Text, FlatList, StyleSheet,Image, TouchableOpacity} from 'react-n
 // import { TouchableOpacity } from 'react-native';
 import Header from "../home/Header";
 import { useSelector , useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/cartSlice';
-import cartSlice from '../../redux/cartSlice';
+// import  removeFromCart  from '../../redux/cartSlice';
+// import cartSlice from '../../redux/cartSlice'; 
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 
 const CartScreen = () => {
-  const nav = useNavigation();
+  const navigation = useNavigation();
   const cartItems = useSelector(state => state.cartSlice);
   // const dispatch = useDispatch();
 
@@ -19,18 +19,20 @@ const CartScreen = () => {
 
   },[])
   // Fetch food categories and items from Firebase
-  const foodData = []; // Retrieve data from Firebase
+  // const foodData = []; // Retrieve data from Firebase
 
   // const handleRomoveFromCart =(itemId)=>{
   //   dispatch(removeFromCart(itemId));
   // }
+
   handlecheckout =()=>{
     console.log("checkout btn clicked")
-    nav.navigate("Checkout")
+    // navigation.navigate("Checkout")
   }
+
   return (
     <View style={styles.container}>
-      {/* <Header/> */}
+      <Header/>
       {/* <Text>Hello Menu Items</Text> */}
       {cartItems.map(item =>(
         <View key={item.id}>
@@ -44,7 +46,7 @@ const CartScreen = () => {
             <Text style={styles.text}>{item.Intro}</Text>
             <Text style={styles.text}>Price ZAR {item.Price}</Text>
           <TouchableOpacity title="checkout"  onPress={()=> handlecheckout(item.id)} >
-            <Text>Checkout</Text>
+            {/* <Text>Checkout</Text> */}
             
           </TouchableOpacity> 
 

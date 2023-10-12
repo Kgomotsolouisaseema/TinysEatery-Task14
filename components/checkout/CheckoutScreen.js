@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 
 const CheckoutScreen = () => {
   // Fetch food categories and items from Firebase
-  const foodData = []; // Retrieve data from Firebase
+  // const foodData = []; // Retrieve data from Firebase
 
   return (
     <View style={styles.container}>
