@@ -5,19 +5,24 @@ const cartSlice = createSlice({
 //THIS SETS THE NAME OF OUR SLICE WHICH IS CART
     name: "cart",
 //THE INITIAL STATE OF OUR  cartSlice IS AN EMPTY ARRAY
-    initialState: [],
+    initialState: {
+        items:[],
+    },
 //DEFINING OUR REDUCERS FUNCTIONS : addtoCart,removeFromCart , IncreamentQuantity , decreamentQuantiy    
     reducers: {
 //CHECKS IF AN ITEM WITH THE SAME NAME AS PAYLOAD EXSISTS IN CART, IT YES IT INCREAMENTS COUNT BY 1 IF NOT IT ADDS AND STARTS AT 1
         addToCart: (state, actions) => {
-            const isAvailable = state.find(
-                (value) => value.name == actions.payload.name
-            );
-            if (isAvailable) {
-                actions.payload["quantity"] + 1;
-            } else {
-                state.push({ ...actions.payload, quantity:1 });
-            }
+            state.items = [...state.items, actions.payload]
+             console.log( "add to cart slice at cartslice", state.items)
+            // const isAvailable = state.find(
+            //     (value) => value.name == actions.payload.name,
+               
+            // );
+            // if (isAvailable) {
+            //     actions.payload["quantity"] + 1;
+            // } else {
+            //     state.push({ ...actions.payload, quantity:1 });
+            // }
         },
 //FUNCTION REMOVES ITEMS FROM CART BY CREATING A NEW LIST OF ITEMS THAT DONT MATCH THE PROVIDED PAYLOADS NAME
         removeFromCart: (state, actions) => {
@@ -58,6 +63,7 @@ export const {
     decrementQuantity,
 } = cartSlice.actions;
 
+export const selectCartItems = state =>state.cart.items
 //EXPORTING THE REDUCER FUNCTION FROM `cartSlice.reducer`. THE REDUCER SPECIFIES HOW THE STATE SHOULD BE UPDATED BASED ON DISPATCHED ACTIONS
 export default cartSlice.reducer;
 

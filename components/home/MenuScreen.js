@@ -3,8 +3,12 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import React, { useEffect, useState } from "react";
 import Header from "../home/Header";
-import { UseSelector,useDispatch } from 'react-redux';
+import { UseSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
+import { removeFromCart } from "../../redux/cartSlice";
+import { incrementQuantity } from "../../redux/cartSlice";
+import { decrementQuantity } from "../../redux/cartSlice";
+
 import { Avatar } from "react-native-paper";
 import {
   View,
@@ -16,11 +20,10 @@ import {
   CheckBox,
 } from "react-native";
 
-
 const MenuScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
+
   // const isLoggedIn = UseSelector(state => state.auth.isLoggedIn);
 
   // FOOD CATEGORIES TO BE DISPLAYED ON MY MENU SCREEN
@@ -28,7 +31,6 @@ const MenuScreen = () => {
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  
 
   useEffect(() => {
     const fetchFoodCategories = async () => {
@@ -40,7 +42,7 @@ const MenuScreen = () => {
         }));
         setFoodCategories(catergoriesData);
         // setFilteredCategories(catergoriesData);
-        setSelectedItems(catergoriesData)
+        setSelectedItems(catergoriesData);
 
         console.log(foodCategories, "food categories");
       } catch (error) {
@@ -68,23 +70,20 @@ const MenuScreen = () => {
   // };
 
   //FUNCTION TO HANDLE ADDING TO CART
- 
- 
- 
-  const handleAddToCart = id => {
-    console.log("Add to cart btn clicked ");
-    console.log(selectedItems, "selectedItems");
-    //THIS PART FILTERS THE SELECTED ITEM WITH ITS ID 
-    const [item]= selectedItems.filter(item =>item.id ===id)
-    //WE DISPATCH THE ITEM AND ADD IT TO THE CART 
+
+  const handleAddToCart = (id) => {
+
+    // console.log(selectedItems, "selectedItems");
+    //THIS PART FILTERS THE SELECTED ITEM WITH ITS ID
+    const [item] = selectedItems.filter((item) => item.id === id);
+    //WE DISPATCH THE ITEM AND ADD IT TO THE CART
     dispatch(addToCart(item));
-    console.log("items added to cart", item)
+    // console.log("items added to cart", item);
     // Filter out items that are already in the cart
     const newItems = selectedItems.filter(
       (itemId) => !cartItems.includes(itemId)
-
     );
-   
+
     // Add new items to the cart
     // setCartItems([...cartItems, ...newItems]);
     // Clear the selected items
@@ -116,30 +115,67 @@ const MenuScreen = () => {
       console.error("Error fetching menu item", error);
     }
   };
-  //{/*event  , item.id*/}
+  //Function FOR THE BREAKFAST FUNCTION
+
+
   return (
     <View style={styles.container}>
       <Header />
-      <View style={{flexDirection: "row" , justifyContent: "space-between"}}>
-      <Avatar.Image size={65} source={require('../../assets/BreakfastBurger.jpg')} />
-      <Text>BreakFast</Text>
-      {/* <Avatar.Text size={35} label="BreakFast" /> */}
-      
-      <Text>         </Text>
-      <Avatar.Image size={60} source={require('../../assets/BBQ RIBBED.jpg')} />
-      <Text>Lunch</Text>
-      
-      <Text>          </Text>
-      <Avatar.Image size={60} source={require('../../assets/Doughtnuts.jpg')} />
-      <Text>Dessert</Text>
+      <View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: 10,
+            width: "100%",
+          }}
+        >
+          <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+          <Avatar.Image
+            size={75}
+            source={require("../../assets/BreakfastBurger.jpg")}
+          />
+          <Text>BreakFast</Text>
 
-      <Text>          </Text>
-      <Avatar.Image size={60} source={require('../../assets/miniOrangeBomb.jpg ')} />
-      <Text>Drinks</Text>
+          </View>
+          <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+     
+          
+            <Avatar.Image
+              size={75}
+              source={require("../../assets/BBQ RIBBED.jpg")}
+            />
+            <Text>Lunch</Text>
 
+          </View>
+          
+          <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+        
+          <Avatar.Image
+            size={75}
+            source={require("../../assets/Doughtnuts.jpg")}
+          />
+          <Text>Dessert</Text>
+
+            
+          </View>
+
+          <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+        
+          <Avatar.Image
+            size={75}
+            source={require("../../assets/miniOrangeBomb.jpg")}
+          />
+          <Text>Drinks</Text>
+
+          </View>
+        </View>
       </View>
 
-      <Text>This is the Menu Screen. Explore our delicious offerings:</Text>
+      <Text style={{ fontSize: "large" }}>
+        This is the Menu Screen. Explore our delicious offerings:
+      </Text>
       <FlatList
         data={foodCategories}
         keyExtractor={(item) => item.id.toString()}
@@ -153,18 +189,16 @@ const MenuScreen = () => {
             <Text style={styles.text}>{item.Intro}</Text>
             <Text style={styles.text}>Price ZAR {item.Price}</Text>
 
-            <View style={styles.cartactions }>
+            <View style={styles.cartactions}>
               <TouchableOpacity onPress={() => handleAddToCart(item.id)}>
                 <Image
                   style={styles.orderIcon}
                   source={require("../../assets/shopping.png")}
                 />
-                
               </TouchableOpacity>
-             
             </View>
             <View>
-            {/* <CheckBox style={styles.checkBox}
+              {/* <CheckBox style={styles.checkBox}
                 value={selectedItems.includes(item.id)}
                 onValueChange={() => handleCheckboxToggle(item.id)}
               /> */}
@@ -182,6 +216,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFEBCD", //blanched Almond color
+    // flexDirection: "row",
   },
   itemContainer: {
     padding: 20,
@@ -203,7 +238,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  cartactions:{
+  cartactions: {
     alignContent: "center",
     width: "100%",
     alignItems: "flex-end",
@@ -213,7 +248,7 @@ const styles = StyleSheet.create({
     width: 60,
     alignItems: "center",
   },
-  checkBox:{
+  checkBox: {
     height: 30,
     width: 30,
     alignItems: "flex-start",

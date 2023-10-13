@@ -7,15 +7,20 @@ import { useSelector , useDispatch } from 'react-redux';
 // import cartSlice from '../../redux/cartSlice'; 
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { selectCartItems } from '../../redux/cartSlice';
 
 
 const CartScreen = () => {
   const navigation = useNavigation();
-  const cartItems = useSelector(state => state.cartSlice);
-  // const dispatch = useDispatch();
+
+  // const cartItems = useSelector(state => state.cartSlice);
+  const dispatch = useDispatch();
+  
+  const cartItems = useSelector(selectCartItems);
+  // console.log("cart items" , cartItems.Name)
 
   useEffect(()=>{
-    console.log("cart items" , cartItems)
+   
 
   },[])
   // Fetch food categories and items from Firebase
@@ -25,40 +30,36 @@ const CartScreen = () => {
   //   dispatch(removeFromCart(itemId));
   // }
 
-  handlecheckout =()=>{
-    console.log("checkout btn clicked")
-    // navigation.navigate("Checkout")
+   const handlecart =()=>{
+    console.log("Cart btn clicked")
+    navigation.navigate("Cart")
   }
 
   return (
     <View style={styles.container}>
-      <Header/>
-      {/* <Text>Hello Menu Items</Text> */}
+      {/* <Header/> */}
+      <View>
+      <Text>Cart Screen</Text>
       {cartItems.map(item =>(
         <View key={item.id}>
-          {/* <TouchableOpacity title="Remove" onPress={()=> handleRomoveFromCart(item.id)}>
-            
-          </TouchableOpacity> */}
+    
           <View>
-          <Text>Cart screen things </Text>
+          
           <Image style={styles.image} source={{ uri: item.Image }} />
           <Text style={styles.text}>{item.Name}</Text>
             <Text style={styles.text}>{item.Intro}</Text>
             <Text style={styles.text}>Price ZAR {item.Price}</Text>
-          <TouchableOpacity title="checkout"  onPress={()=> handlecheckout(item.id)} >
-            {/* <Text>Checkout</Text> */}
+          <TouchableOpacity title="cart"  onPress={()=> handlecart(item.id)} >
             
           </TouchableOpacity> 
-
-      
-
-
           </View>
 
 
            </View>
       ))}
      
+      </View>
+      
     </View>
   );
 };
@@ -68,12 +69,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor:"green"
+    backgroundColor:"white"
   },
   itemContainer: {
     padding: 20,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: 'white',
     borderRadius: 10,
     margin: 10,
   },

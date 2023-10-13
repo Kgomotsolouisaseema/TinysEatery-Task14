@@ -1,25 +1,36 @@
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
+// import { CardField , useStripe } from "@stripe/stripe-react-native";
 
 const CheckoutScreen = () => {
-  // Fetch food categories and items from Firebase
-  // const foodData = []; // Retrieve data from Firebase
+  // const {confirmPayment}= useStripe();
+ 
 
   return (
     <View style={styles.container}>
       <Text>fOOD ITEMS CART</Text>
-      {/* <FlatList
-        data={foodData}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.itemContainer}>
-            <Text>{item.category}</Text>
-            <Text>fOOD ITEMS CART</Text>
-            {/* Render food items within each category */}
-    </View>
-    // )}
-    // /> */}
-    // </View>
+      {/* <CardField
+      postalCodeEnabled={true}
+      placeholders={{
+        number: '4242 4242 4242 4242',
+      }}
+      cardStyle={{
+        backgroundColor: '#FFFFFF',
+        textColor: '#000000',
+      }}
+      style={{
+        width: '100%',
+        height: 50,
+        marginVertical: 30,
+      }}
+      onCardChange={(cardDetails) => {
+        console.log('cardDetails', cardDetails);
+      }}
+      onFocus={(focusedField) => {
+        console.log('focusField', focusedField);
+      }}
+    /> */}
+     </View>
   );
 };
 
