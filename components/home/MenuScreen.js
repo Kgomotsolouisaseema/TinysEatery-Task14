@@ -3,11 +3,13 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
 import React, { useEffect, useState } from "react";
 import Header from "../home/Header";
+import BottomTabNavigator from "../profile/BottomTabNavigator";
+
 import { UseSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
-import { removeFromCart } from "../../redux/cartSlice";
-import { incrementQuantity } from "../../redux/cartSlice";
-import { decrementQuantity } from "../../redux/cartSlice";
+// import { removeFromCart } from "../../redux/cartSlice";
+// import { incrementQuantity } from "../../redux/cartSlice";
+// import { decrementQuantity } from "../../redux/cartSlice";
 
 import { Avatar } from "react-native-paper";
 import {
@@ -28,6 +30,7 @@ const MenuScreen = () => {
 
   // FOOD CATEGORIES TO BE DISPLAYED ON MY MENU SCREEN
   const [foodCategories, setFoodCategories] = useState([]);
+  // console.log("initial state of foodCategories useState" , foodCategories) //THIS CONTAINS THE WHOLE MENU LIST , ITS NOT CATEGORISED INTO B/F , LUNCH , DESSERTS ECT.
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -41,7 +44,7 @@ const MenuScreen = () => {
           ...doc.data(),
         }));
         setFoodCategories(catergoriesData);
-        // setFilteredCategories(catergoriesData);
+      
         setSelectedItems(catergoriesData);
 
         console.log(foodCategories, "food categories");
@@ -52,22 +55,9 @@ const MenuScreen = () => {
     fetchFoodCategories();
   }, []);
 
-  // const handleCategoryPress = (categoryId) => {
-  //   // Navigate to the detailed view of items within the selected category
-  //   const filteredItems = foodCategories.filter(category => category.id === categoryId);
-  //   setFilteredCategories(filteredItems);
-  //   navigation.navigate('ItemDetails', { categoryId });
-  // };
+ 
 
-  //FUNCTION TO HANDLE  / I WANT THEM TO LIKE THE ITEM/WISHLIST VIBES
-  // const handleCheckboxToggle = (foodItemId) => {
-  //   // Handle checkbox state changes and update selectedItems array
-  //   if (selectedItems.includes(foodItemId)) {
-  //     setSelectedItems(selectedItems.filter((id) => id !== foodItemId));
-  //   } else {
-  //     setSelectedItems([...selectedItems, foodItemId]);
-  //   }
-  // };
+ 
 
   //FUNCTION TO HANDLE ADDING TO CART
 
@@ -115,7 +105,29 @@ const MenuScreen = () => {
       console.error("Error fetching menu item", error);
     }
   };
-  //Function FOR THE BREAKFAST FUNCTION
+
+  //FUCNTION  TO HANDLE CATEGORIES NAVIGATION AND DISPLAY 
+ const handleBreakfastnav = ()=>{
+  console.log("Breafast Avatar Clicked ")
+  navigation.navigate("Breakfast")
+ }
+
+ const handleLunchNav = ()=>{
+  console.log("Lunch Avatar Clicked ")
+  navigation.navigate("Lunch")
+ }
+
+ const handleDessertNav = ()=>{
+  console.log("Dessert Avatar Clicked ")
+  navigation.navigate("Dessert")
+ }
+
+ const handleDrinksNav = ()=>{
+  console.log("Drinks Avatar Clicked ")
+  navigation.navigate("Drinks")
+ }
+
+
 
 
   return (
@@ -127,53 +139,60 @@ const MenuScreen = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            padding: 10,
+            padding: 16,
             width: "100%",
           }}
         >
           <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+          <TouchableOpacity onPress={() => handleBreakfastnav()}>
           <Avatar.Image
             size={75}
             source={require("../../assets/BreakfastBurger.jpg")}
+   
           />
-          <Text>BreakFast</Text>
+          <Text  style={{textDecorationLine: "underline"}}>BreakFast</Text>
+          </TouchableOpacity>
 
           </View>
           <View style={{marginHorizontal:12 ,alignItems: "center" }}>
-     
-          
+          <TouchableOpacity onPress={() => handleLunchNav()}>
+
             <Avatar.Image
               size={75}
               source={require("../../assets/BBQ RIBBED.jpg")}
             />
-            <Text>Lunch</Text>
+            <Text  style={{textDecorationLine: "underline"}}>Lunch</Text>
+            </TouchableOpacity>
 
           </View>
           
           <View style={{marginHorizontal:12 ,alignItems: "center" }}>
+          <TouchableOpacity onPress={() => handleDessertNav()}>
         
           <Avatar.Image
             size={75}
             source={require("../../assets/Doughtnuts.jpg")}
           />
-          <Text>Dessert</Text>
+          <Text  style={{textDecorationLine: "underline"}}>Dessert</Text>
+          </TouchableOpacity>
 
             
           </View>
 
           <View style={{marginHorizontal:12 ,alignItems: "center" }}>
-        
+          <TouchableOpacity onPress={() => handleDrinksNav()}>
           <Avatar.Image
             size={75}
             source={require("../../assets/miniOrangeBomb.jpg")}
           />
-          <Text>Drinks</Text>
+          <Text style={{textDecorationLine: "underline"}}>Drinks</Text>
+          </TouchableOpacity>
 
           </View>
         </View>
       </View>
 
-      <Text style={{ fontSize: "large" }}>
+      <Text style={{ fontSize: "large" , fontStyle:"italic",fontWeight:"bold" }}>
         This is the Menu Screen. Explore our delicious offerings:
       </Text>
       <FlatList
@@ -206,6 +225,7 @@ const MenuScreen = () => {
           </View>
         )}
       />
+      {/* <BottomTabNavigator/> */}
     </View>
   );
 };

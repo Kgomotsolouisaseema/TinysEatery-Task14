@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import store from "./redux/store";
+// import Reanimated from 'react-native-reanimated';
+// import 'react-native-gesture-handler';  
 // import { Provider } from "react-redux";
 import { Provider as StoreProvider } from "react-redux";
 import AppNavigator from "./components/AppNavigator";
@@ -9,6 +11,7 @@ import { AppRegistry } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
 // import { StripeProvider } from "@stripe/stripe-react-native";
+
 
 export default function App() {
   // const [publishableKey ,setPublishableKey]= useState(" ");
@@ -36,6 +39,7 @@ export default function App() {
         <PaperProvider>
           <NavigationContainer>
             <AppNavigator />
+          
           </NavigationContainer>
         </PaperProvider>
       </StoreProvider>
