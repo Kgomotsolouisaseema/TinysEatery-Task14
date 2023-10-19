@@ -12,18 +12,14 @@ import { useNavigation } from "@react-navigation/native";
 import Header from "../home/Header";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-// import { AntDesign } from '@expo/vector-icons';
-
-
-
+import { MaterialCommunityIcons } from '@expo/vector-icons';//1
 
 
 function BreakfastMenu() {
   const navigation = useNavigation();
   const [breakfastMenu, setBreakfastMenu] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [Liked , SetLiked] = useState(false);
+  const [Liked , SetLiked] = useState(false); //2
 
   useEffect(() => {
     const breakfastMenu = async () => {
@@ -46,26 +42,22 @@ function BreakfastMenu() {
   }, []);
 
   // FUNCTION TO HANDLE  / I WANT THEM TO LIKE THE ITEM/WISHLIST VIBES
-  const handleCheckboxToggle = (foodItemId) => {
-    // Handle checkbox state changes and update selectedItems array
-    if (selectedItems.includes(foodItemId)) {
-      setSelectedItems(selectedItems.filter((id) => id !== foodItemId));
-    } else {
-      setSelectedItems([...selectedItems, foodItemId]);
-    }
-  };
+  // const handleCheckboxToggle = (foodItemId) => {
+  //   // Handle checkbox state changes and update selectedItems array
+  //   if (selectedItems.includes(foodItemId)) {
+  //     setSelectedItems(selectedItems.filter((id) => id !== foodItemId));
+  //   } else {
+  //     setSelectedItems([...selectedItems, foodItemId]);
+  //   }
+  // };
 
-  //FUNCTION FOR LIKE BUTTON 
-
+  //FUNCTION FOR LIKE BUTTON //3
     const onLikePress = () =>{
         console.log("Like btn clicked ")
         SetLiked(!Liked);
     }
 
-    // const onUnLikePress = () =>{
-    //     console.log("Unliked btn pressed ")
-    //     SetLiked(true);
-    // }
+  
 
   return (
     <View style={styles.container}>
@@ -84,15 +76,14 @@ function BreakfastMenu() {
               <Text style={styles.text}>{item.Name}</Text>
               <Text style={styles.text}>{item.Intro}</Text>
               <Text style={styles.text}>Price ZAR {item.Price}</Text>
+
               <View style={styles.like}>
               <TouchableOpacity onPress={onLikePress} >
                 {Liked ? (
                  <MaterialCommunityIcons name="heart" size={34} color="red" />
                 ):(
                   <MaterialCommunityIcons name="heart-outline" size={34} color="black" />
-                )}
-              
-               
+                )} 
               </TouchableOpacity>
               </View>
 
@@ -105,11 +96,11 @@ function BreakfastMenu() {
               </TouchableOpacity> */}
               </View>
               <View>
-                <CheckBox
+                {/* <CheckBox
                   style={styles.checkBox}
                   value={selectedItems.includes(item.id)}
                   onValueChange={() => handleCheckboxToggle(item.id)}
-                />
+                /> */}
                 {/* <LikeButton liked={Liked} onPress={Liked ? onLikePress : onLikePress  }/> */}
               </View>
             </View>

@@ -1,12 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs ,setDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import React, { useEffect, useState } from "react";
 import Header from "../home/Header";
-import BottomTabNavigator from "../profile/BottomTabNavigator";
+// import BottomTabNavigator from "../profile/BottomTabNavigator";
 
-import { UseSelector, useDispatch } from "react-redux";
-import { addToCart } from "../../redux/cartSlice";
+// import { UseSelector, useDispatch } from "react-redux";
+// import { addToCart } from "../../redux/cartSlice";
 // import { removeFromCart } from "../../redux/cartSlice";
 // import { incrementQuantity } from "../../redux/cartSlice";
 // import { decrementQuantity } from "../../redux/cartSlice";
@@ -24,7 +24,7 @@ import {
 
 const MenuScreen = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const isLoggedIn = UseSelector(state => state.auth.isLoggedIn);
 
@@ -61,23 +61,23 @@ const MenuScreen = () => {
 
   //FUNCTION TO HANDLE ADDING TO CART
 
-  const handleAddToCart = (id) => {
+  const handleAddToCart = async (id ,user) => {
+    try {
+      const selectedItem = foodCategories.find((item) => item.id === id);
 
-    // console.log(selectedItems, "selectedItems");
-    //THIS PART FILTERS THE SELECTED ITEM WITH ITS ID
-    const [item] = selectedItems.filter((item) => item.id === id);
-    //WE DISPATCH THE ITEM AND ADD IT TO THE CART
-    dispatch(addToCart(item));
-    // console.log("items added to cart", item);
-    // Filter out items that are already in the cart
-    const newItems = selectedItems.filter(
-      (itemId) => !cartItems.includes(itemId)
-    );
-
-    // Add new items to the cart
-    // setCartItems([...cartItems, ...newItems]);
-    // Clear the selected items
-    setSelectedItems([]);
+      if (selectedItem) {
+        const userId = user.userId; // Replace 'userId' with the 
+        console.log("userId" , userId)
+        const cartItemRef = doc(collection(db, `users/${userId}/cartItems`), selectedItem.id);
+        await setDoc(cartItemRef, selectedItem);
+        setCartItems([...cartItems, selectedItem]); // Update local cart items state if needed
+        console.log("Item added to cart and Firestore successfully:", selectedItem);
+      } else {
+        console.log("Item not found.");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart and Firestore:", error);
+    }
   };
 
   const handleFoodItemPress = async (foodItemId) => {
@@ -209,7 +209,7 @@ const MenuScreen = () => {
             <Text style={styles.text}>Price ZAR {item.Price}</Text>
 
             <View style={styles.cartactions}>
-              <TouchableOpacity onPress={() => handleAddToCart(item.id)}>
+              <TouchableOpacity onPress={() => handleAddToCart(item.id ,userId)}>
                 <Image
                   style={styles.orderIcon}
                   source={require("../../assets/shopping.png")}

@@ -4,16 +4,22 @@ import { NavigationContainer } from "@react-navigation/native";
 import store from "./redux/store";
 // import Reanimated from 'react-native-reanimated';
 // import 'react-native-gesture-handler';  
-// import { Provider } from "react-redux";
+
 import { Provider as StoreProvider } from "react-redux";
 import AppNavigator from "./components/AppNavigator";
 import { AppRegistry } from "react-native";
 import { PaperProvider } from "react-native-paper";
 import { name as appName } from "./app.json";
 // import { StripeProvider } from "@stripe/stripe-react-native";
+// import { useRoute } from "@react-navigation/native";
+// import { useNavigation } from "@react-navigation/native";
+
 
 
 export default function App() {
+  // const navigation= useNavigation()
+  const [email , setEmail] = useState ("")
+  const [userId , setUserId]= useState("")
   // const [publishableKey ,setPublishableKey]= useState(" ");
 
   // const fetchPublishableKey = async () => {
@@ -42,7 +48,7 @@ export default function App() {
           
           </NavigationContainer>
         </PaperProvider>
-      </StoreProvider>
+       </StoreProvider>
     // </StripeProvider> */}
   );
 }

@@ -8,6 +8,8 @@ const cartSlice = createSlice({
     initialState: {
         items:[],
     },
+    // initialState:[],
+    
 //DEFINING OUR REDUCERS FUNCTIONS : addtoCart,removeFromCart , IncreamentQuantity , decreamentQuantiy    
     reducers: {
 //CHECKS IF AN ITEM WITH THE SAME NAME AS PAYLOAD EXSISTS IN CART, IT YES IT INCREAMENTS COUNT BY 1 IF NOT IT ADDS AND STARTS AT 1

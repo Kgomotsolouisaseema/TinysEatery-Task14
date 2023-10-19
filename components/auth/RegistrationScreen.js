@@ -22,6 +22,7 @@ const RegistrationScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  // const [imageUri ,setImage]=useState("")
   const [surname, setSurname] = useState("");
   const [contactNum, setContactNum] = useState("");
   const [address, setAdress] = useState("");
@@ -60,6 +61,16 @@ const RegistrationScreen = () => {
         cardHolder:cardHolder,
         cardDetails:cardDetails,
       });
+      navigation.navigate("Profile" , {
+        email:user.email,
+        name: name,
+        surname:surname,
+        contactNum:contactNum,
+        address:address,
+        cardHolder:cardHolder,
+        cardDetails:cardDetails,
+
+      })
       // dispatch(setUser(user));
 
       console.log("Handle Registration btn Clicked" , cardDetails);

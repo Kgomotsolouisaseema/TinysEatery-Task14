@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet,Alert, TouchableOpacity } from 'react-native';
 // import {auth , onAuthStateChanged} from  "../config/firebase"
-import { onAuthStateChanged,auth } from 'firebase/auth';
+import { onAuthStateChanged,auth,  } from 'firebase/auth';
+import { updateDoc,getDoc,doc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 const ProfileScreen = () => {
+  const navigate = useNavigation();
   const [userDetails, setUserDetails] = useState({
     name: '',
     email: '',
@@ -40,7 +43,7 @@ const ProfileScreen = () => {
         style={styles.input}
       />
       {/* Other input fields for email, address, and contact number */}
-      <Pressable title="Update Profile" onPress={handleProfileUpdate} />
+      <TouchableOpacity title="Update Profile" onPress={handleProfileUpdate} />
     </View>
   );
 };

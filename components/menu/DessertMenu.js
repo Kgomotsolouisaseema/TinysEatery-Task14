@@ -12,11 +12,14 @@ import { useNavigation } from "@react-navigation/native";
 import Header from "../home/Header";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; //1
 
 function DessertMenu() {
   const navigation = useNavigation();
   const [dessertMenu, setDessertMenu] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
+  
+  const [Liked , SetLiked] = useState(false); //2
 
   useEffect(() => {
     const dessertMenu = async () => {
@@ -39,14 +42,21 @@ function DessertMenu() {
   }, []);
 
   // FUNCTION TO HANDLE  / I WANT THEM TO LIKE THE ITEM/WISHLIST VIBES
-  const handleCheckboxToggle = (foodItemId) => {
-    // Handle checkbox state changes and update selectedItems array
-    if (selectedItems.includes(foodItemId)) {
-      setSelectedItems(selectedItems.filter((id) => id !== foodItemId));
-    } else {
-      setSelectedItems([...selectedItems, foodItemId]);
-    }
-  };
+  // const handleCheckboxToggle = (foodItemId) => {
+  //   // Handle checkbox state changes and update selectedItems array
+  //   if (selectedItems.includes(foodItemId)) {
+  //     setSelectedItems(selectedItems.filter((id) => id !== foodItemId));
+  //   } else {
+  //     setSelectedItems([...selectedItems, foodItemId]);
+  //   }
+  // };
+
+  //FUNCTION FOR LIKING //3
+  const onLikePress = () =>{
+    console.log("Like btn clicked ")
+    SetLiked(!Liked);
+}
+
 
   return (
     <View style={styles.container}>
@@ -65,6 +75,15 @@ function DessertMenu() {
               <Text style={styles.text}>{item.Name}</Text>
               <Text style={styles.text}>{item.Intro}</Text>
               <Text style={styles.text}>Price ZAR {item.Price}</Text>
+              <View style={styles.like}>
+              <TouchableOpacity onPress={onLikePress} >
+                {Liked ? (
+                 <MaterialCommunityIcons name="heart" size={34} color="red" />
+                ):(
+                  <MaterialCommunityIcons name="heart-outline" size={34} color="black" />
+                )} 
+              </TouchableOpacity>
+              </View>
 
               <View style={styles.cartactions}>
                 {/* <TouchableOpacity onPress={() => handleAddToCart(item.id)}>
@@ -75,11 +94,11 @@ function DessertMenu() {
               </TouchableOpacity> */}
               </View>
               <View>
-                <CheckBox
+                {/* <CheckBox
                   style={styles.checkBox}
                   value={selectedItems.includes(item.id)}
                   onValueChange={() => handleCheckboxToggle(item.id)}
-                />
+                /> */}
               </View>
             </View>
           )}
@@ -133,6 +152,15 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     // borderRadius: 5,
   },
+
+  like: {
+    flexDirection: "row",
+    // alignItems: "flex-end",
+    // flexDirection:"row", 
+    alignItems:"flex-end",
+     justifyContent: "flex-end",
+      borderWidth:0, width:"100%"
+  }
 });
 
 export default DessertMenu;
